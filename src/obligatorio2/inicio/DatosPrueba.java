@@ -15,6 +15,7 @@ public class DatosPrueba {
         logica.agregarUsuario(new UsuarioJuego("Usuario1", "usuario1", "Nombre Usuario 1"));
         logica.agregarUsuario(new UsuarioJuego("Usuario2", "usuario2", "Nombre Usuario 2"));
         logica.agregarUsuario(new UsuarioJuego("Usuario3", "usuario3", "Nombre Usuario 3"));
+        logica.agregarUsuario(new UsuarioJuego("Usuario4", "usuario4", "Nombre Usuario 4"));
         logica.agregarUsuario(new UsuarioAdministrador("Admin", "admin", "Usuario Administrador"));
     }
 }
