@@ -1,24 +1,30 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
 package obligatorio2.ui;
 
-import obligatorio2.dominio.usuarios.UsuarioAdministrador;
+import obligatorio2.dominio.usuarios.Sesion;
+import obligatorio2.dominio.usuarios.UsuarioJuego;
 
 /**
  *
  * @author eliasalcoba
  */
-public class Prueba extends javax.swing.JFrame {
+public class Prueba extends javax.swing.JDialog {
 
     /**
-     * Creates new form prueba
+     * Creates new form Prueba
      */
-    public Prueba() {
+    public Prueba(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
     }
-
+    public Prueba(java.awt.Frame parent, boolean modal, Sesion sesion) {
+        super(parent, modal);
+        initComponents();
+        verQueEs(sesion);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -30,26 +36,38 @@ public class Prueba extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        textoMostrar = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setText("Entroooo");
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
+        jLabel1.setText("Entrooooooooo");
+
+        textoMostrar.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
+        textoMostrar.setText("soy un: ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(208, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(135, 135, 135))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(153, 153, 153)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(78, 78, 78)
+                        .addComponent(textoMostrar, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(76, 76, 76)
+                .addGap(120, 120, 120)
                 .addComponent(jLabel1)
-                .addContainerGap(208, Short.MAX_VALUE))
+                .addGap(41, 41, 41)
+                .addComponent(textoMostrar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(79, Short.MAX_VALUE))
         );
 
         pack();
@@ -81,17 +99,37 @@ public class Prueba extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Prueba.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
 
-        /* Create and display the form */
+        /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Prueba().setVisible(true);
+                Prueba dialog = new Prueba(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel textoMostrar;
     // End of variables declaration//GEN-END:variables
+
+    
+    public void verQueEs(Sesion sesion){
+        if(sesion.getUsuario() instanceof UsuarioJuego){
+            this.textoMostrar.setText("SOy un: JUGADOR");
+        }
+        else{
+            this.textoMostrar.setText("SOy un: ADMINISTRADOR");
+        }
+    }
+
+
+
 }

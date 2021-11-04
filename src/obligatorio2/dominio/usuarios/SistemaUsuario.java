@@ -26,7 +26,7 @@ public class SistemaUsuario {
         return true;
     }
     
-    public Sesion loginUsuarioAgenda(String user, String password) {
+    public Sesion loginUsuarioJuego(String user, String password) {
         Usuario usuario = login(user, password, usuariosJuego);
         if (usuario == null) {
             return null;

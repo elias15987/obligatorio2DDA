@@ -4,7 +4,7 @@
  */
 package obligatorio2.inicio;
 
-import obligatorio2.ui.Principal;
+import obligatorio2.ui.Login;
 
 /**
  *
@@ -17,8 +17,8 @@ public class Obligatorio2 {
      */
     public static void main(String[] args) {
         DatosPrueba.cargar();
-        Principal principal = new Principal();
-        principal.setVisible(true);
+        Login login = new Login() {};
+        login.setVisible(true);
     }
     
 }

@@ -1,19 +1,33 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
 package obligatorio2.ui;
 
-
+import java.lang.constant.Constable;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import obligatorio2.controladores.LoginController;
+import obligatorio2.dominio.Sistema;
 import obligatorio2.dominio.usuarios.Sesion;
 
-public abstract class Login extends javax.swing.JDialog {
+/**
+ *
+ * @author eliasalcoba
+ */
+public class Login extends javax.swing.JFrame {
 
+    private LoginController controlador;
+    
     /**
      * Creates new form Login
      */
-    public Login(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public Login() {
         initComponents();
         setTitle("Login");
-        limpiarDatos();
+        this.controlador = new LoginController(this);
+        controlador.limpiarDatos();
+
     }
 
     /**
@@ -27,22 +41,29 @@ public abstract class Login extends javax.swing.JDialog {
 
         lbl_Nombre = new javax.swing.JLabel();
         lbl_Password = new javax.swing.JLabel();
-        txt_Nombre = new javax.swing.JTextField();
         pw_Password = new javax.swing.JPasswordField();
+        txt_Nombre = new javax.swing.JTextField();
         btn_Login = new javax.swing.JButton();
         btn_Cancelar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        lbl_Nombre.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        lbl_Nombre.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lbl_Nombre.setText("Nombre:");
 
-        lbl_Password.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        lbl_Password.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         lbl_Password.setText("Password:");
 
-        txt_Nombre.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        pw_Password.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        pw_Password.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pw_PasswordActionPerformed(evt);
+            }
+        });
 
-        btn_Login.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        txt_Nombre.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        btn_Login.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btn_Login.setText("Login");
         btn_Login.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -50,7 +71,7 @@ public abstract class Login extends javax.swing.JDialog {
             }
         });
 
-        btn_Cancelar.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        btn_Cancelar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         btn_Cancelar.setText("Cancelar");
         btn_Cancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -63,56 +84,92 @@ public abstract class Login extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(75, 75, 75)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btn_Login)
-                        .addGap(56, 56, 56)
-                        .addComponent(btn_Cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
+                        .addGap(39, 39, 39)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lbl_Password)
-                            .addComponent(lbl_Nombre))
-                        .addGap(26, 26, 26)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txt_Nombre)
-                            .addComponent(pw_Password, javax.swing.GroupLayout.DEFAULT_SIZE, 358, Short.MAX_VALUE))))
-                .addContainerGap(137, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lbl_Password)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(pw_Password, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lbl_Nombre)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txt_Nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(87, 87, 87)
+                        .addComponent(btn_Login)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btn_Cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(80, Short.MAX_VALUE))
         );
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btn_Cancelar, btn_Login});
-
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(67, 67, 67)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_Nombre)
-                    .addComponent(txt_Nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(59, 59, 59)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lbl_Password, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pw_Password))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btn_Login, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btn_Cancelar))
-                .addGap(60, 60, 60))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txt_Nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_Nombre))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(pw_Password, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_Password))
+                .addGap(37, 37, 37)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_Login, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_Cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(88, Short.MAX_VALUE))
         );
-
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {pw_Password, txt_Nombre});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btn_CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CancelarActionPerformed
-        dispose();
-    }//GEN-LAST:event_btn_CancelarActionPerformed
 
     private void btn_LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_LoginActionPerformed
         login();
     }//GEN-LAST:event_btn_LoginActionPerformed
 
+    private void btn_CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CancelarActionPerformed
+        dispose();
+    }//GEN-LAST:event_btn_CancelarActionPerformed
+
+    private void pw_PasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pw_PasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pw_PasswordActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Login().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_Cancelar;
@@ -124,24 +181,23 @@ public abstract class Login extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private void login() {
-        String nombre = txt_Nombre.getText();
+        String user = txt_Nombre.getText();
         String password = String.valueOf(pw_Password.getPassword());
-        Sesion sesion = this.hacerLogin(nombre, password);
-        if (sesion != null) {
-            this.mostrarProximaInterfaz(sesion);
-            dispose();
+
+        if(controlador.login(user, password)){
+           controlador.mostrarProximaInterfaz();
         } else {
             JOptionPane.showMessageDialog(null, "Usuario y/o password incorrecta", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    private void limpiarDatos() {
-        txt_Nombre.setText("");
-        pw_Password.setText("");
-        txt_Nombre.requestFocus();
+    public void setTxt_Nombre(String text) {
+        this.txt_Nombre.setText(text);
+    }
+
+    public void setPw_Password(String text) {
+        this.pw_Password.setText(text);
     }
     
-    public abstract Sesion hacerLogin(String user, String password);
-    
-    public abstract void mostrarProximaInterfaz(Sesion sesion);
+
 }

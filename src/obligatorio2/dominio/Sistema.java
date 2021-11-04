@@ -19,13 +19,15 @@ public class Sistema extends Observable {
         return instancia;
     }
     
-    public Sesion loginUsuarioAgenda(String user, String password) {
-        return sistemaUsuario.loginUsuarioAgenda(user, password);
+    public Sesion loginUsuario(String user, String password) {
+        Sesion retSesion = sistemaUsuario.loginUsuarioJuego(user, password);
+        
+        if(retSesion == null){
+            retSesion = sistemaUsuario.loginUsuarioAdministrador(user, password);
+        }
+        return retSesion;
     }
     
-    public Sesion loginUsuarioAdministrador(String user, String password) {
-        return sistemaUsuario.loginUsuarioAdministrador(user, password);
-    }
 
     /*
     public List<TipoContacto> getTiposContacto() {
