@@ -23,6 +23,10 @@ public class UsuarioJuego extends Usuario{
     public void setSaldo(double saldo) {
         this.saldo = saldo;
     }
+
+    public void validar() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
 }

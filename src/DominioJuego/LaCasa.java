@@ -1,0 +1,6 @@
+
+package DominioJuego;
+
+interface LaCasa {
+    
+}
