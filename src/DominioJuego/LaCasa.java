@@ -3,4 +3,6 @@ package DominioJuego;
 
 interface LaCasa {
     
+  
+    
 }

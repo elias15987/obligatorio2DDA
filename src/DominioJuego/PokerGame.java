@@ -4,11 +4,13 @@ package DominioJuego;
 import obligatorio2.dominio.Sistema;
 import java.util.ArrayList;
 import java.util.List;
+import obligatorio2.dominio.usuarios.SistemaUsuario;
 import obligatorio2.dominio.usuarios.Usuario;
 import obligatorio2.dominio.usuarios.UsuarioJuego;
 import obligatorio2.utilidades.EventoJuego;
 import obligatorio2.utilidades.EventoSistema;
 import obligatorio2.utilidades.Observable;
+import obligatorio2.dominio.usuarios.SistemaUsuario;
 
 public class PokerGame extends Observable{
     
@@ -22,12 +24,13 @@ public class PokerGame extends Observable{
         return jugadores;
     }
     
-    public boolean agregarJugadorPartida(String nombreUsuario, double saldo){
+    public boolean agregarJugadorPartida(Usuario usuario){
         
-            if(jugadores.contains(nombreUsuario)){
+            if(jugadores.contains(usuario)){
                 return false;
             }
-            jugadores.add(nombreUsuario);
+
+            jugadores.add((UsuarioJuego) usuario);
             return true;
     }
     
