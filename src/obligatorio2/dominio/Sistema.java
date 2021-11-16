@@ -2,16 +2,19 @@ package obligatorio2.dominio;
 
 
 import java.util.List;
+import obligatorio2.dominio.juego.MesaClase;
+import obligatorio2.dominio.juego.SistemaJuego;
 import obligatorio2.dominio.usuarios.Sesion;
 import obligatorio2.dominio.usuarios.SistemaUsuario;
+import obligatorio2.dominio.usuarios.Usuario;
 import obligatorio2.dominio.usuarios.UsuarioAdministrador;
 import obligatorio2.dominio.usuarios.UsuarioJuego;
 import obligatorio2.utilidades.Observable;
 
 public class Sistema extends Observable {
 
-    //private SistemaTipo sistemaTipo = new SistemaTipo();
     private SistemaUsuario sistemaUsuario = new SistemaUsuario();
+    private SistemaJuego sistemaJuego = new SistemaJuego();
 
     private static Sistema instancia = new Sistema();
     
@@ -28,17 +31,6 @@ public class Sistema extends Observable {
         return retSesion;
     }
     
-
-    /*
-    public List<TipoContacto> getTiposContacto() {
-        return sistemaTipo.getTiposContacto();
-    }
-    
-    public List<TipoTelefono> getTiposTelefono() {
-        return sistemaTipo.getTiposTelefono();
-    }
-    */
-    
     public boolean agregarUsuario(UsuarioJuego usuario) {
         return sistemaUsuario.agregarUsuarioJuego(usuario);
     }
@@ -46,18 +38,7 @@ public class Sistema extends Observable {
     public boolean agregarUsuario(UsuarioAdministrador usuario) {
         return sistemaUsuario.agregarUsuarioAdministrador(usuario);
     }
-    
-    /*
-    public boolean agregarTipoContacto(TipoContacto tipoContacto) {
-        return sistemaTipo.agregarTipoContacto(tipoContacto);
-    }
-    
-    public boolean agregarTipoTelefono(TipoTelefono tipoTelefono) {
-        return sistemaTipo.agregarTipoTelefono(tipoTelefono);
-    }
-    
-*/
-    
+
     public List<Sesion> getUsuariosLogueados() {
         return sistemaUsuario.getUsuariosLogueados();
     }
@@ -65,4 +46,10 @@ public class Sistema extends Observable {
     public void logout(Sesion sesion) {
         sistemaUsuario.logout(sesion);
     }
+    
+    
+    public MesaClase agregarUsuarioAMesa(Usuario usuario){
+       MesaClase mesa = sistemaJuego.agregarUsuarioMesa(usuario);
+       return mesa;
+   }
 }

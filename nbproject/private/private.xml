@@ -3,12 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/eliasalcoba/NetBeansProjects/Obligatorio2/src/obligatorio2/ui/Login.java</file>
-            <file>file:/Users/eliasalcoba/NetBeansProjects/Obligatorio2/src/obligatorio2/controladores/LoginController.java</file>
+            <file>file:/Users/eliasalcoba/NetBeansProjects/Obligatorio2/src/obligatorio2/utilidades/RotatedIcon.java</file>
+            <file>file:/Users/eliasalcoba/NetBeansProjects/Obligatorio2/src/obligatorio2/utilidades/Observable.java</file>
+            <file>file:/Users/eliasalcoba/NetBeansProjects/Obligatorio2/src/obligatorio2/utilidades/Observador.java</file>
+            <file>file:/Users/eliasalcoba/NetBeansProjects/Obligatorio2/src/obligatorio2/ui/PanelJugador.java</file>
             <file>file:/Users/eliasalcoba/NetBeansProjects/Obligatorio2/src/obligatorio2/dominio/Sistema.java</file>
-            <file>file:/Users/eliasalcoba/NetBeansProjects/Obligatorio2/src/obligatorio2/inicio/Obligatorio2.java</file>
+            <file>file:/Users/eliasalcoba/NetBeansProjects/Obligatorio2/src/obligatorio2/ui/Mesa.java</file>
+            <file>file:/Users/eliasalcoba/NetBeansProjects/Obligatorio2/src/obligatorio2/dominio/juego/SistemaJuego.java</file>
             <file>file:/Users/eliasalcoba/NetBeansProjects/Obligatorio2/src/obligatorio2/dominio/usuarios/SistemaUsuario.java</file>
-            <file>file:/Users/eliasalcoba/NetBeansProjects/Obligatorio2/src/obligatorio2/ui/Prueba.java</file>
         </group>
     </open-files>
 </project-private>

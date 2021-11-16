@@ -6,7 +6,10 @@ package obligatorio2.controladores;
 
 import obligatorio2.dominio.Sistema;
 import obligatorio2.dominio.usuarios.Sesion;
+import obligatorio2.dominio.usuarios.Usuario;
+import obligatorio2.dominio.usuarios.UsuarioJuego;
 import obligatorio2.ui.Login;
+import obligatorio2.ui.PanelJugador;
 import obligatorio2.ui.Prueba;
 
 /**
@@ -39,8 +42,35 @@ public class LoginController {
     }
     
     public void mostrarProximaInterfaz(){
-        Prueba prueba = new Prueba(login, false, this.sesion);
-        prueba.setVisible(true);
-        prueba.setLocationRelativeTo(login);
+        if(this.sesion.getUsuario() instanceof UsuarioJuego)
+        {
+            PanelJugador panel = new PanelJugador(login, false, this);
+            panel.setVisible(true);
+            panel.setLocationRelativeTo(login);
+        }
+        else {
+            Prueba prueba = new Prueba(login, false, this.sesion);
+            prueba.setVisible(true);
+            prueba.setLocationRelativeTo(login);
+        }
+    }
+    
+    
+    
+    public void cerrarSesion(){
+        Sistema.getInstancia().logout(this.sesion);
+    }
+    
+    
+    public String getNombreSesion(){
+        return this.sesion.getUsuario().getNombreCompleto();
+    }
+    
+    public double getSaldoSesion(){
+        return ((UsuarioJuego)this.sesion.getUsuario()).getSaldo();
+    }
+    
+    public Usuario getUsuarioSesion(){
+        return this.sesion.getUsuario();
     }
 }
