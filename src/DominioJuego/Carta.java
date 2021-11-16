@@ -1,19 +1,33 @@
 
 package DominioJuego;
 
+import java.util.List;
+
 public abstract class Carta implements LaCasa, Comparable<Carta> {
+
+    static List<Carta> mazoNuevo() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
-    private int valor;
+    private ValorCarta valor;
     private Palo palo;
 
     public Carta() {
     }
-
-    public Carta(int valor, Palo palo) throws IllegalArgumentException {
+    
+    public ValorCarta valor(){
+        return valor;
+    }
+    
+    public Palo palo(){
+        return palo;
+    }
+    
+    public Carta(ValorCarta valor, Palo palo) throws IllegalArgumentException {
         
-        if (valor < 2 || valor > 14) {
+        if (valor == null || palo == null) {
             
-            throw new IllegalArgumentException("Los valores de la carta son incorrectos.");
+            throw new NullPointerException(valor + ", " + palo);
         }
         
         this.valor = valor;
@@ -25,49 +39,22 @@ public abstract class Carta implements LaCasa, Comparable<Carta> {
         return palo;
     }
 
-    public int getValor() {
+    public ValorCarta getValor() {
         return valor;
     }
     
-    public String getValorCarta(){
-        
-        if(valor <= 10) {
-            
-            return Integer.toString(valor);
-            
-        }
-        else{
-            switch(valor){
-                case (11) : return "J";
-                case (12) : return "Q";
-                case (13) : return "K";
-                case (14) : return "A";
-                default: return "Ocurrió un error inesperado.";
-            }
-        }
-        
+   @Override
+    public int compareTo(Carta c) {
+        int compararPalo = palo.compareTo(c.palo);
+        return (compararPalo != 0 ?
+                    compararPalo :
+                    valor.compareTo(c.valor));
     }
-    
-    @Override
-    public int compareTo(Carta otraCarta){ //le iba a poner con un boolean pero el compareTo me mandó a pasear si no era int
-        
-        if (this.valor > otraCarta.valor) {
-            return 1;
-        }
-        else if (this.valor > otraCarta.valor){
-            return -1;
-        }
-        else {
-            return 0;
-        }
-    }
-    
-    //Falta ver como hacer que los enum se comparen para que los palos también jueguen en determinar cual es mayor
     
     @Override
     public String toString(){
         
-        return (getValorCarta() + " de " + getPalo());
+        return (getValor() + " de " + getPalo());
     }
     
     

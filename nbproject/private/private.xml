@@ -3,14 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/user/Documents/ORT/DDA/obligatorio2DDA-fede/obligatorio2DDA/src/obligatorio2/dominio/usuarios/UsuarioJuego.java</file>
             <file>file:/C:/Users/user/Documents/ORT/DDA/obligatorio2DDA-fede/obligatorio2DDA/src/obligatorio2/inicio/DatosPrueba.java</file>
-            <file>file:/C:/Users/user/Documents/ORT/DDA/obligatorio2DDA-fede/obligatorio2DDA/src/obligatorio2/dominio/usuarios/Usuario.java</file>
+            <file>file:/C:/Users/user/Documents/ORT/DDA/obligatorio2DDA-fede/obligatorio2DDA/src/DominioJuego/Mazo.java</file>
             <file>file:/C:/Users/user/Documents/ORT/DDA/obligatorio2DDA-fede/obligatorio2DDA/src/DominioJuego/PokerGame.java</file>
             <file>file:/C:/Users/user/Documents/ORT/DDA/obligatorio2DDA-fede/obligatorio2DDA/src/DominioJuego/Carta.java</file>
-            <file>file:/C:/Users/user/Documents/ORT/DDA/obligatorio2DDA-fede/obligatorio2DDA/src/obligatorio2/dominio/Sistema.java</file>
-            <file>file:/C:/Users/user/Documents/ORT/DDA/obligatorio2DDA-fede/obligatorio2DDA/src/DominioJuego/LaCasa.java</file>
-            <file>file:/C:/Users/user/Documents/ORT/DDA/obligatorio2DDA-fede/obligatorio2DDA/src/DominioJuego/Palo.java</file>
+            <file>file:/C:/Users/user/Documents/ORT/DDA/obligatorio2DDA-fede/obligatorio2DDA/src/obligatorio2/dominio/usuarios/SistemaUsuario.java</file>
+            <file>file:/C:/Users/user/Documents/ORT/DDA/obligatorio2DDA-fede/obligatorio2DDA/src/DominioJuego/ManoJugador.java</file>
         </group>
     </open-files>
 </project-private>
