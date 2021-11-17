@@ -20,7 +20,9 @@ import obligatorio2.controladores.LoginController;
 import obligatorio2.controladores.MesaController;
 import obligatorio2.dominio.Sistema;
 import obligatorio2.dominio.juego.MesaClase;
+import obligatorio2.dominio.usuarios.Sesion;
 import obligatorio2.dominio.usuarios.Usuario;
+import obligatorio2.dominio.usuarios.UsuarioJuego;
 import obligatorio2.utilidades.Observable;
 import obligatorio2.utilidades.Observador;
 import obligatorio2.utilidades.RotatedIcon;
@@ -30,19 +32,17 @@ import obligatorio2.utilidades.RotatedIcon;
  *
  * @author eliasalcoba
  */
-public class Mesa extends javax.swing.JDialog implements Observador{
+public class Mesa extends javax.swing.JDialog{
 
     
-    private LoginController loginControlador;
     private MesaController mesaController;
     /**
      * Creates new form Mesa
      */
-    public Mesa(java.awt.Dialog parent, boolean modal, LoginController controladorLogin, MesaController mesaControlador) {
+    public Mesa(java.awt.Dialog parent, boolean modal, MesaController mesaControlador) {
         super(parent, modal);
         initComponents();
-        Sistema.getInstancia().agregar(this);
-        this.loginControlador = controladorLogin;
+        //Sistema.getInstancia().agregar(this);
         this.mesaController = mesaControlador;
         this.getContentPane().setBackground( Color.black );
         marcarSillas();      
@@ -57,47 +57,79 @@ public class Mesa extends javax.swing.JDialog implements Observador{
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        tituloMesa1 = new javax.swing.JLabel();
+        tituloMesa2 = new javax.swing.JLabel();
+        labelFaltantes = new javax.swing.JLabel();
         silla1 = new javax.swing.JLabel();
         textoSilla1 = new javax.swing.JLabel();
         silla2 = new javax.swing.JLabel();
+        textoSilla2 = new javax.swing.JLabel();
         silla3 = new javax.swing.JLabel();
+        textoSilla3 = new javax.swing.JLabel();
         silla4 = new javax.swing.JLabel();
+        textoSilla4 = new javax.swing.JLabel();
         silla5 = new javax.swing.JLabel();
+        textoSilla5 = new javax.swing.JLabel();
         silla6 = new javax.swing.JLabel();
         textoSilla6 = new javax.swing.JLabel();
-        tituloMesa1 = new javax.swing.JLabel();
-        tituloMesa2 = new javax.swing.JLabel();
         mesaFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        tituloMesa1.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
+        tituloMesa1.setForeground(new java.awt.Color(204, 204, 204));
+        tituloMesa1.setText("Esperando inicio");
+        getContentPane().add(tituloMesa1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 210, 190, 50));
+
+        tituloMesa2.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
+        tituloMesa2.setForeground(new java.awt.Color(204, 204, 204));
+        tituloMesa2.setText("del juego");
+        getContentPane().add(tituloMesa2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 250, -1, -1));
+
+        labelFaltantes.setForeground(new java.awt.Color(204, 204, 204));
+        labelFaltantes.setText("Faltan 0 jugadores para iniciar.");
+        getContentPane().add(labelFaltantes, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 290, -1, -1));
         getContentPane().add(silla1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 380, 10, 30));
 
         textoSilla1.setForeground(new java.awt.Color(255, 255, 255));
         getContentPane().add(textoSilla1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 440, 200, 30));
         getContentPane().add(silla2, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 370, 30, 30));
+
+        textoSilla2.setForeground(new java.awt.Color(255, 255, 255));
+        getContentPane().add(textoSilla2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 430, 160, 30));
         getContentPane().add(silla3, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 230, 20, 30));
+
+        textoSilla3.setForeground(new java.awt.Color(255, 255, 255));
+        getContentPane().add(textoSilla3, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 300, 170, 30));
         getContentPane().add(silla4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 240, 50, 40));
+
+        textoSilla4.setForeground(new java.awt.Color(255, 255, 255));
+        getContentPane().add(textoSilla4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 320, 140, 20));
         getContentPane().add(silla5, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 90, 40, 40));
+
+        textoSilla5.setForeground(new java.awt.Color(255, 255, 255));
+        getContentPane().add(textoSilla5, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, 130, 20));
         getContentPane().add(silla6, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 100, 40, 20));
 
         textoSilla6.setForeground(new java.awt.Color(255, 255, 255));
         getContentPane().add(textoSilla6, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 20, 170, 30));
-
-        tituloMesa1.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
-        tituloMesa1.setText("Esperando inicio");
-        getContentPane().add(tituloMesa1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 210, 190, 50));
-
-        tituloMesa2.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
-        tituloMesa2.setText("del juego");
-        getContentPane().add(tituloMesa2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 250, -1, -1));
 
         mesaFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/mesa_sin_jugador.jpg"))); // NOI18N
         getContentPane().add(mesaFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(111, 67, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        mesaController.salirDeMesa();
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments
@@ -129,7 +161,7 @@ public class Mesa extends javax.swing.JDialog implements Observador{
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Mesa dialog = new Mesa(new javax.swing.JDialog(), true, new LoginController(new Login()), new MesaController(new PanelJugador()));
+                Mesa dialog = new Mesa(new javax.swing.JDialog(), true, new MesaController(new PanelJugador(), new UsuarioJuego()));
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -142,6 +174,7 @@ public class Mesa extends javax.swing.JDialog implements Observador{
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel labelFaltantes;
     private javax.swing.JLabel mesaFondo;
     private javax.swing.JLabel silla1;
     private javax.swing.JLabel silla2;
@@ -150,6 +183,10 @@ public class Mesa extends javax.swing.JDialog implements Observador{
     private javax.swing.JLabel silla5;
     private javax.swing.JLabel silla6;
     private javax.swing.JLabel textoSilla1;
+    private javax.swing.JLabel textoSilla2;
+    private javax.swing.JLabel textoSilla3;
+    private javax.swing.JLabel textoSilla4;
+    private javax.swing.JLabel textoSilla5;
     private javax.swing.JLabel textoSilla6;
     private javax.swing.JLabel tituloMesa1;
     private javax.swing.JLabel tituloMesa2;
@@ -158,8 +195,14 @@ public class Mesa extends javax.swing.JDialog implements Observador{
     private JLabel label1;
     private JLabel label2;
     private JLabel label3;
+    
+    
+    
+    public void mostrarTitulo(String titulo){
+        this.setTitle(titulo);
+    }
 
-    private void marcarSillas()
+    public void marcarSillas()
     {
         this.setSize(700, 700);
         setLocationRelativeTo(null);
@@ -177,25 +220,58 @@ public class Mesa extends javax.swing.JDialog implements Observador{
         this.silla6.setIcon(new RotatedIcon(imageIcon, 45));
         this.silla6.setVisible(false);
         
+        this.textoSilla1.setText("");        
+        this.textoSilla2.setText("");
+        this.textoSilla3.setText("");
+        this.textoSilla4.setText("");
+        this.textoSilla5.setText("");
+        this.textoSilla6.setText("");
+
         
         ArrayList<Usuario> usuariosMesa = this.mesaController.getMesa().getUsuarios();
         
-        this.silla1.setVisible(true);
-        textoSilla1.setText(loginControlador.getNombreSesion());
         
-        for(Usuario u : usuariosMesa){
-            if(u.getNombreCompleto() != loginControlador.getNombreSesion()){
-                textoSilla6.setText(u.getNombreCompleto());
-                silla6.setVisible(true);
+        this.silla1.setVisible(true);
+        textoSilla1.setText(mesaController.getSesion().getUsuario().getNombreCompleto());
+        
+        for(int i = 0; i < usuariosMesa.size(); i++){
+            Usuario u = usuariosMesa.get(i);
+           switch (i){
+                    
+                case 1:
+                    this.silla6.setVisible(true);
+                    this.textoSilla6.setText(u.getNombreCompleto());
+                    break;
+                
+                case 2:
+                    this.silla4.setVisible(true);
+                    this.textoSilla4.setText(u.getNombreCompleto());
+                    break;
+                        
+                case 3:
+                    this.silla3.setVisible(true);
+                    this.textoSilla3.setText(u.getNombreCompleto());
+                    break;
+                    
+                case 4:
+                    this.silla5.setVisible(true);
+                    this.textoSilla5.setText(u.getNombreCompleto());
+                    break;
+                    
+                case 5:
+                    this.silla2.setVisible(true);
+                    this.textoSilla2.setText(u.getNombreCompleto());
+                    break;
+                        
+                default:
+                    this.silla1.setVisible(true);
+                    this.textoSilla1.setText(u.getNombreCompleto());
             }
         }
+        
+        int faltantes = mesaController.getMesa().getTopeUsuarios() - usuariosMesa.size();
+        
+        this.labelFaltantes.setText("Faltan " + faltantes + " jugadores para iniciar.");
 
-
-
-    }
-
-    @Override
-    public void actualizar(Observable origen, Object evento) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

@@ -44,7 +44,7 @@ public class LoginController {
     public void mostrarProximaInterfaz(){
         if(this.sesion.getUsuario() instanceof UsuarioJuego)
         {
-            PanelJugador panel = new PanelJugador(login, false, this);
+            PanelJugador panel = new PanelJugador(login, false, new PanelController(this.login, sesion.getUsuario()));
             panel.setVisible(true);
             panel.setLocationRelativeTo(login);
         }
@@ -55,22 +55,4 @@ public class LoginController {
         }
     }
     
-    
-    
-    public void cerrarSesion(){
-        Sistema.getInstancia().logout(this.sesion);
-    }
-    
-    
-    public String getNombreSesion(){
-        return this.sesion.getUsuario().getNombreCompleto();
-    }
-    
-    public double getSaldoSesion(){
-        return ((UsuarioJuego)this.sesion.getUsuario()).getSaldo();
-    }
-    
-    public Usuario getUsuarioSesion(){
-        return this.sesion.getUsuario();
-    }
 }

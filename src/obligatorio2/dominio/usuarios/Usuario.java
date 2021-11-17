@@ -13,6 +13,9 @@ public abstract class Usuario {
     private String password;
     private String nombreCompleto;
 
+    
+    public Usuario (){}
+    
     public Usuario(String user, String password, String nombreCompleto) {
         this.user = user;
         this.password = password;

@@ -1,34 +1,32 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package obligatorio2.dominio.juego;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import obligatorio2.dominio.usuarios.Usuario;
+import obligatorio2.utilidades.EventoMesaUsuario;
+import obligatorio2.utilidades.Observable;
 
-/**
- *
- * @author eliasalcoba
- */
-public class MesaClase {
+
+public class MesaClase extends Observable{
     
     private ArrayList<Usuario> usuarios = new ArrayList<>();
     private int topeUsuarios = 6;
     private int luz;
     private boolean iniciado = false;
+    private String nombreMesa;
     
 
     public MesaClase()
     {
     }
     
-    public MesaClase(ArrayList<Usuario> usuarios, int topeUsuarios, int luz) {
+    public MesaClase(ArrayList<Usuario> usuarios, int topeUsuarios, int luz, String nombre) {
         this.usuarios = usuarios;
         this.topeUsuarios = topeUsuarios;
         this.luz = luz;
+        this.nombreMesa = nombre;
     }
 
     public ArrayList<Usuario> getUsuarios() {
@@ -58,6 +56,14 @@ public class MesaClase {
     public void setIniciado(boolean iniciado) {
         this.iniciado = iniciado;
     }
+
+    public void setNombreMesa(String nombreMesa) {
+        this.nombreMesa = nombreMesa;
+    }
+
+    public String getNombreMesa() {
+        return nombreMesa;
+    }
     
     
     
@@ -72,8 +78,27 @@ public class MesaClase {
         
         if(this.lugarDisponible())
         {
+            if(!usuarios.contains(usuario)){
             usuarios.add(usuario);
+            this.setIniciado(usuarios.size() == topeUsuarios);            
+            avisar(EventoMesaUsuario.LISTA_JUGADORES);
             ret = true;
+            }
+        }
+        
+        return ret;
+    }
+    
+    
+    public boolean eliminarUsuario(Usuario usuario){
+        boolean ret = false;
+        
+        if(usuarios != null){
+            if(usuarios.contains(usuario)){
+                usuarios.remove(usuario);
+                avisar(EventoMesaUsuario.LISTA_JUGADORES);
+                ret = true;
+            }
         }
         
         return ret;

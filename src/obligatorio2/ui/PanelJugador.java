@@ -6,7 +6,10 @@ package obligatorio2.ui;
 
 import obligatorio2.controladores.LoginController;
 import obligatorio2.controladores.MesaController;
+import obligatorio2.controladores.PanelController;
 import obligatorio2.dominio.Sistema;
+import obligatorio2.dominio.usuarios.Usuario;
+import obligatorio2.dominio.usuarios.UsuarioJuego;
 
 /**
  *
@@ -19,10 +22,12 @@ public class PanelJugador extends javax.swing.JDialog {
      * Creates new form PanelJugador
      */
     
-    public PanelJugador(java.awt.Frame parent, boolean modal, LoginController controlador) {
+    private PanelController panelControlador;
+    
+    public PanelJugador(java.awt.Frame parent, boolean modal, PanelController controlador) {
         super(parent, modal);
         initComponents();
-        this.controlador = controlador;
+        this.panelControlador = controlador;
         this.cargarDatos();
 
     }
@@ -46,13 +51,16 @@ public class PanelJugador extends javax.swing.JDialog {
     
     private void cargarDatos(){
         
-        this.bienvenidoLabel.setText("Bienvenido " + controlador.getNombreSesion());
-        this.saldoLabel.setText("Saldo disponible: " + controlador.getSaldoSesion());
+        this.bienvenidoLabel.setText("Bienvenido " + panelControlador.getNombreSesion());
+        this.saldoLabel.setText("Saldo disponible: " + panelControlador.getSaldoSesion());
+        mostrarTitulo(panelControlador.getUsuarioSesion().getNombreCompleto());
     }
     
     
     
-    
+        public void mostrarTitulo(String titulo){
+        this.setTitle(titulo);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -126,15 +134,15 @@ public class PanelJugador extends javax.swing.JDialog {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         
-        MesaController controladorMesa = new MesaController(this);
-        controladorMesa.entrarEnMesa(controlador);
+        MesaController controladorMesa = new MesaController(this, panelControlador.getUsuarioSesion());
+        controladorMesa.entrarEnMesa();
             
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         
-        this.controlador.cerrarSesion();
+        this.panelControlador.cerrarSesion();
         dispose();
 
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -169,7 +177,7 @@ public class PanelJugador extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                PanelJugador dialog = new PanelJugador(new javax.swing.JFrame(), true, new LoginController(new Login()));
+                PanelJugador dialog = new PanelJugador(new javax.swing.JFrame(), true, new PanelController(new Login(), new UsuarioJuego()));
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

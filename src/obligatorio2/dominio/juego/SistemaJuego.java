@@ -32,6 +32,8 @@ public class SistemaJuego {
         if(mesasDisponible == null){
             mesasDisponible = new MesaClase();
             mesasDisponible.setLuz(this.luz);
+            int nombre = this.mesasEnJuego.size() + this.mesasFinalizadas.size() + 1;
+            mesasDisponible.setNombreMesa(nombre + "");
         }
     }
     
@@ -52,11 +54,30 @@ public class SistemaJuego {
         }
         if(this.mesasDisponible.lugarDisponible() && !this.mesasDisponible.isIniciado()){
             if(this.mesasDisponible.agregarUsuario(usuario)){
-                return this.mesasDisponible;
+                MesaClase mesa = this.mesasDisponible;
+                this.iniciarMesa();
+                this.agregarMesa();
+                return mesa;
             }
         }
         
         return null;
+    }
+    
+    
+    private void iniciarMesa(){
+        if(this.mesasDisponible.isIniciado()){
+           this.mesasEnJuego.add(this.mesasDisponible);
+           this.mesasDisponible = null;
+        }
+    }
+
+    public MesaClase getMesasDisponible() {
+        return mesasDisponible;
+    }
+
+    public void setMesasDisponible(MesaClase mesasDisponible) {
+        this.mesasDisponible = mesasDisponible;
     }
     
     

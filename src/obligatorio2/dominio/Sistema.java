@@ -52,4 +52,11 @@ public class Sistema extends Observable {
        MesaClase mesa = sistemaJuego.agregarUsuarioMesa(usuario);
        return mesa;
    }
+
+    public SistemaJuego getSistemaJuego() {
+        return sistemaJuego;
+    }
+    
+    
+   
 }
