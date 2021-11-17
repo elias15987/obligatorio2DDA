@@ -9,19 +9,19 @@ public class RepartirCartas {
     
     public static void main(String args[]) {
         int numeroMano     = Integer.parseInt(args[0]);
-        int cartasPorManio = Integer.parseInt(args[1]);
+        int cartasPorManio = Integer.parseInt(args[5]);
         List<Carta> mazo  = Carta.mazoNuevo();
         Collections.shuffle(mazo);
         for (int i=0; i < numeroMano; i++)
-            System.out.println(dealHand(mazo, cartasPorManio));
+            System.out.println(repartirMano(mazo, cartasPorManio));
     }
     
     public static <E extends Comparable<E>>
-    ArrayList<E> dealHand(List<E> deck, int n) {
-        int tamanioMazo = deck.size();
-        List<E> handView = deck.subList(deckSize - n, deckSize);
-        ArrayList<E> hand = new ArrayList<>(handView);
-        handView.clear();
+    ArrayList<E> repartirMano(List<E> mazo, int n) {
+        int tamanioMazo = mazo.size();
+        List<E> vistaMano = mazo.subList(tamanioMazo - n, tamanioMazo);
+        ArrayList<E> hand = new ArrayList<E>(vistaMano);
+        vistaMano.clear();
         Collections.sort(hand);
         return hand;
     }

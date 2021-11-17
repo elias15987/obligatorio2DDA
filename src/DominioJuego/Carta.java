@@ -1,13 +1,10 @@
 
 package DominioJuego;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Carta implements LaCasa, Comparable<Carta> {
-
-    static List<Carta> mazoNuevo() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+public abstract class Carta implements Comparable<Carta> {
     
     private ValorCarta valor;
     private Palo palo;
@@ -57,6 +54,18 @@ public abstract class Carta implements LaCasa, Comparable<Carta> {
         return (getValor() + " de " + getPalo());
     }
     
+    private static final List<Carta> auxMazo = new ArrayList<Carta>(52);
+
+    static {
+        for (Palo palo : Palo.values())
+            for (ValorCarta valor : ValorCarta.values())
+                auxMazo.add(new Carta(valor, palo) {});
+    }
+
+    // Returns a new deck
+    public static List<Carta> mazoNuevo() {
+        return new ArrayList<Carta>(auxMazo);
+    }
     
     
 }
