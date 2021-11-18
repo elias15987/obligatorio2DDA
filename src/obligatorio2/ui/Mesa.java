@@ -202,6 +202,24 @@ public class Mesa extends javax.swing.JDialog{
         this.setTitle(titulo);
     }
 
+    
+    public void actualizarFaltantes(){
+  
+        ArrayList<Usuario> usuariosMesa = this.mesaController.getMesa().getUsuarios();
+
+        int faltantes = mesaController.getMesa().getTopeUsuarios() - usuariosMesa.size();
+        
+        if(faltantes > 0){
+            this.labelFaltantes.setText("Faltan " + faltantes + " jugadores para iniciar.");
+        }
+        else{
+            this.labelFaltantes.setVisible(false);
+            this.tituloMesa1.setVisible(false);
+            this.tituloMesa2.setVisible(false);
+        }
+    }
+    
+    
     public void marcarSillas()
     {
         this.setSize(700, 700);
@@ -268,10 +286,6 @@ public class Mesa extends javax.swing.JDialog{
                     this.textoSilla1.setText(u.getNombreCompleto());
             }
         }
-        
-        int faltantes = mesaController.getMesa().getTopeUsuarios() - usuariosMesa.size();
-        
-        this.labelFaltantes.setText("Faltan " + faltantes + " jugadores para iniciar.");
 
     }
 }

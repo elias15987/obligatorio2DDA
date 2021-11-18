@@ -11,6 +11,9 @@ import obligatorio2.dominio.usuarios.UsuarioJuego;
 import obligatorio2.ui.Login;
 import obligatorio2.ui.PanelJugador;
 import obligatorio2.ui.Prueba;
+import obligatorio2.utilidades.EventoMesaUsuario;
+import obligatorio2.utilidades.Observable;
+import obligatorio2.utilidades.Observador;
 
 /**
  *
@@ -54,5 +57,7 @@ public class LoginController {
             prueba.setLocationRelativeTo(login);
         }
     }
+
+    
     
 }

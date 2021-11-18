@@ -7,8 +7,11 @@ import obligatorio2.dominio.usuarios.Usuario;
 import obligatorio2.dominio.usuarios.UsuarioJuego;
 import obligatorio2.ui.Login;
 import obligatorio2.ui.PanelJugador;
+import obligatorio2.utilidades.EventoMesaUsuario;
+import obligatorio2.utilidades.Observable;
+import obligatorio2.utilidades.Observador;
 
-public class PanelController {
+public class PanelController implements Observador{
         
     private Sesion sesion;
     private PanelJugador vistaPanel;
@@ -42,6 +45,20 @@ public class PanelController {
     
     public Usuario getUsuarioSesion(){
         return this.sesion.getUsuario();
+    }
+
+    @Override
+    public void actualizar(Observable origen, Object evento) {
+    if (evento.equals(EventoMesaUsuario.ACTUALIZAR_SALDO)) {
+           this.actualizarSaldo();
+        }    
+    }
+    
+    
+    
+    public void actualizarSaldo(){
+        ((UsuarioJuego)this.sesion.getUsuario()).setSaldo(0);
+        this.vistaPanel.cargarDatos();
     }
        
 }

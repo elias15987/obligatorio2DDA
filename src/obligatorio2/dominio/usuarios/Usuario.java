@@ -1,14 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package obligatorio2.dominio.usuarios;
 
-/**
- *
- * @author eliasalcoba
- */
-public abstract class Usuario {
+import obligatorio2.utilidades.EventoMesaUsuario;
+import obligatorio2.utilidades.Observable;
+
+
+public abstract class Usuario extends Observable{
     private String user;
     private String password;
     private String nombreCompleto;
@@ -36,5 +33,11 @@ public abstract class Usuario {
 
     boolean validarPassword(String password) {
         return this.getPassword().equals(password);
+    }
+    
+    
+    public void avisarEvento(){
+        avisar(EventoMesaUsuario.ACTUALIZAR_SALDO);
+
     }
 }

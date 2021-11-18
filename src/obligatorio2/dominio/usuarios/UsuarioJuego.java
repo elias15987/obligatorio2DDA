@@ -1,24 +1,30 @@
 
 package obligatorio2.dominio.usuarios;
 
-public class UsuarioJuego extends Usuario{
+import obligatorio2.utilidades.EventoMesaUsuario;
+
+public class UsuarioJuego extends Usuario {
     
-    private double saldo; 
+    private int saldo; 
     
     
     public UsuarioJuego(){}
     
-    public UsuarioJuego(String user, String password, String nombreCompleto) {
+    public UsuarioJuego(String user, String password, String nombreCompleto, int saldo) {
         super(user, password, nombreCompleto);
-    }
-    
-    public double getSaldo() {
-        return saldo;
-    }
-
-    public void setSaldo(double saldo) {
         this.saldo = saldo;
     }
     
+    public int getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(int saldo) {
+        this.saldo = saldo;
+    }
+    
+    public void restarApuesta(int apuesta){
+        this.saldo -= apuesta;
+    }
     
 }

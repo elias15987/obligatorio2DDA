@@ -4,6 +4,7 @@ package obligatorio2.dominio.juego;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import obligatorio2.dominio.juego.baraja.Mazo;
 import obligatorio2.dominio.usuarios.Usuario;
 import obligatorio2.utilidades.EventoMesaUsuario;
 import obligatorio2.utilidades.Observable;
@@ -16,10 +17,15 @@ public class MesaClase extends Observable{
     private int luz;
     private boolean iniciado = false;
     private String nombreMesa;
+    private Mazo mazo;
+    private ArrayList<Apuesta> apuestas = new ArrayList<>();
+    private int pozo;
+
     
 
     public MesaClase()
     {
+        this.mazo = generarMazo();
     }
     
     public MesaClase(ArrayList<Usuario> usuarios, int topeUsuarios, int luz, String nombre) {
@@ -27,6 +33,7 @@ public class MesaClase extends Observable{
         this.topeUsuarios = topeUsuarios;
         this.luz = luz;
         this.nombreMesa = nombre;
+        this.mazo = generarMazo();
     }
 
     public ArrayList<Usuario> getUsuarios() {
@@ -55,6 +62,9 @@ public class MesaClase extends Observable{
 
     public void setIniciado(boolean iniciado) {
         this.iniciado = iniciado;
+        if(iniciado) {
+            avisar(EventoMesaUsuario.JUGAR_AL_POKER);
+        }
     }
 
     public void setNombreMesa(String nombreMesa) {
@@ -64,6 +74,16 @@ public class MesaClase extends Observable{
     public String getNombreMesa() {
         return nombreMesa;
     }
+
+    public Mazo getMazo() {
+        return mazo;
+    }
+
+    public void setMazo(Mazo mazo) {
+        this.mazo = mazo;
+    }
+    
+    
     
     
     
@@ -124,4 +144,24 @@ public class MesaClase extends Observable{
         }
     }
     
+    
+    public Mazo generarMazo(){
+        Mazo mazo = new Mazo();
+        return mazo;
+    }
+    
+    
+    public ArrayList<Apuesta> getApuestas() {
+        return apuestas;
+    }
+
+    public void setApuestas(ArrayList<Apuesta> apuestas) {
+        this.apuestas = apuestas;
+    }   
+    
+    public boolean agregarApuesta(int apuesta, Usuario usuario){
+        this.apuestas.add(new Apuesta(apuesta, usuario));
+        this.pozo += apuesta;
+        return true;
+    }
 }

@@ -6,6 +6,7 @@ package obligatorio2.dominio.juego;
 
 import java.util.ArrayList;
 import java.util.List;
+import obligatorio2.dominio.juego.baraja.Figura;
 import obligatorio2.dominio.usuarios.Usuario;
 
 /**
@@ -18,6 +19,7 @@ public class SistemaJuego {
     private ArrayList<MesaClase> mesasEnJuego = new  ArrayList<>();
     private ArrayList<MesaClase> mesasFinalizadas = new  ArrayList<>();
     private int luz;
+    private ArrayList<Figura> figurasPoker = new ArrayList<>();
 
     public int getLuz() {
         return luz;
@@ -80,10 +82,13 @@ public class SistemaJuego {
         this.mesasDisponible = mesasDisponible;
     }
     
-    
-    
-    
-    
+    public void agregarFigura(Figura figura){
+        this.figurasPoker.add(figura);
+    }
+
+    public ArrayList<Figura> getFigurasPoker() {
+        return figurasPoker;
+    }
     
 
     

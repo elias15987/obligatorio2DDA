@@ -4,6 +4,8 @@ package obligatorio2.dominio;
 import java.util.List;
 import obligatorio2.dominio.juego.MesaClase;
 import obligatorio2.dominio.juego.SistemaJuego;
+import obligatorio2.dominio.juego.baraja.Carta;
+import obligatorio2.dominio.juego.baraja.Figura;
 import obligatorio2.dominio.usuarios.Sesion;
 import obligatorio2.dominio.usuarios.SistemaUsuario;
 import obligatorio2.dominio.usuarios.Usuario;
@@ -52,11 +54,21 @@ public class Sistema extends Observable {
        MesaClase mesa = sistemaJuego.agregarUsuarioMesa(usuario);
        return mesa;
    }
+    
+    public void setLuzMesa(int luz){
+        this.sistemaJuego.setLuz(luz);
+    }
+    
+    public int traerLuzMesa(){
+        return this.sistemaJuego.getLuz();
+    }
 
     public SistemaJuego getSistemaJuego() {
         return sistemaJuego;
     }
     
-    
-   
+    public void agregarFigura(Figura figura){
+        this.sistemaJuego.agregarFigura(figura);
+    }
+     
 }

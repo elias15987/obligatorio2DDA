@@ -49,7 +49,7 @@ public class PanelJugador extends javax.swing.JDialog {
 
     
     
-    private void cargarDatos(){
+    public void cargarDatos(){
         
         this.bienvenidoLabel.setText("Bienvenido " + panelControlador.getNombreSesion());
         this.saldoLabel.setText("Saldo disponible: " + panelControlador.getSaldoSesion());
@@ -136,7 +136,6 @@ public class PanelJugador extends javax.swing.JDialog {
         
         MesaController controladorMesa = new MesaController(this, panelControlador.getUsuarioSesion());
         controladorMesa.entrarEnMesa();
-            
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
