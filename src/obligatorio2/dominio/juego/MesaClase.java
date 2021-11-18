@@ -1,6 +1,7 @@
 
 package obligatorio2.dominio.juego;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -21,7 +22,11 @@ public class MesaClase extends Observable{
     private Mazo mazo;
     private ArrayList<Apuesta> apuestas = new ArrayList<>();
     private int pozo;
-
+    private boolean manoIniciada = false;
+    private Usuario ganador;
+    private LocalDateTime fechaInicio;
+    private int TotalApostado = 0; 
+    private int totalManos = 0;
     
 
     public MesaClase()
@@ -63,6 +68,11 @@ public class MesaClase extends Observable{
 
     public void setIniciado(boolean iniciado) {
         this.iniciado = iniciado;
+        if(iniciado){
+            this.fechaInicio = LocalDateTime.now();
+            avisar(EventoMesaUsuario.MESA_INICIADA);
+
+        }
     }
 
     public void setNombreMesa(String nombreMesa) {
@@ -87,6 +97,46 @@ public class MesaClase extends Observable{
 
     public void setPozo(int pozo) {
         this.pozo = pozo;
+    }
+
+    public boolean isManoIniciada() {
+        return manoIniciada;
+    }
+
+    public void setManoIniciada(boolean manoIniciada) {
+        this.manoIniciada = manoIniciada;
+    }
+
+    public Usuario getGanador() {
+        return ganador;
+    }
+
+    public void setGanador(Usuario ganador) {
+        this.ganador = ganador;
+    }
+
+    public LocalDateTime getFechaInicio() {
+        return fechaInicio;
+    }
+
+    public void setFechaInicio(LocalDateTime fechaInicio) {
+        this.fechaInicio = fechaInicio;
+    }
+
+    public int getTotalApostado() {
+        return TotalApostado;
+    }
+
+    public void setTotalApostado(int TotalApostado) {
+        this.TotalApostado = TotalApostado;
+    }
+
+    public int getTotalManos() {
+        return totalManos;
+    }
+
+    public void setTotalManos(int totalManos) {
+        this.totalManos = totalManos;
     }
     
     
@@ -166,13 +216,26 @@ public class MesaClase extends Observable{
     }   
     
     public boolean agregarApuesta(int apuesta, Usuario usuario){
-        this.apuestas.add(new Apuesta(apuesta, usuario));
-        this.pozo += apuesta;
-        for(Usuario u : this.usuarios){
-            ((UsuarioJuego)u).restarApuesta(apuesta);
+        if(!this.manoIniciada){
+            this.apuestas.add(new Apuesta(0, usuario));
+        }
+        else {
+            for(Apuesta a : apuestas){
+                if(a.getUsuario().equals(usuario)){
+                    a.setApuesta(apuesta);
+                }
+            }
+            for(Usuario u : this.usuarios){
+                if(u.equals(usuario)){
+                    ((UsuarioJuego)u).restarApuesta(apuesta);
+                }
+            }
         }
         avisar(EventoMesaUsuario.APOSTO);
-        return true;
+
+        this.pozo += apuesta;
+        this.TotalApostado += apuesta;
+        return true;        
     }
     
     
@@ -210,4 +273,65 @@ public class MesaClase extends Observable{
         }
         return mano;
     }
+    
+    
+    public void usuarioPaso(Usuario usuario){
+        for(Usuario u : this.usuarios){
+            if(u.equals(usuario)){
+                ((UsuarioJuego)u).setPaso(true);
+                for(Apuesta a : this.apuestas){
+                    if(a.getUsuario().equals(u)){
+                        a.setApuesta(0);
+                    }
+                }
+                avisar(EventoMesaUsuario.PASO_MANO);
+            }
+        }
+    }
+    
+    public void habilitarMano(){
+        for(Usuario u : this.usuarios){
+            ((UsuarioJuego)u).setPaso(false);
+        }
+    }
+    
+    public void pasarTurno(Usuario usuario){
+        int contador = 0;
+        for(Usuario u : this.usuarios){
+            if(u.equals(usuario)){
+                ((UsuarioJuego)u).setPaso(true);
+            }
+            if(((UsuarioJuego)u).isPaso()){
+                contador++;
+            }
+        }
+        if(contador == this.usuarios.size()){
+            jugarMano();
+        }
+    }
+    
+    public void jugarMano(){
+        UsuarioJuego uAux = (UsuarioJuego)this.usuarios.get(0);
+        
+        for(int i = 1; i < this.usuarios.size(); i++){
+            if(uAux.getMano().getFigura() != null){
+                if(((UsuarioJuego)usuarios.get(i)).getMano().getFigura() != null){
+                    if(!uAux.getMano().getFigura().masAlta(((UsuarioJuego)usuarios.get(i)).getMano().getFigura())){
+                        uAux = (UsuarioJuego)usuarios.get(i);
+                    } 
+                }
+            }
+            else if(((UsuarioJuego)usuarios.get(i)).getMano().getFigura() != null){
+                uAux = (UsuarioJuego)usuarios.get(i);
+            }
+        }
+        
+        this.ganador = uAux;
+        this.totalManos ++;
+        avisar(EventoMesaUsuario.GANADOR);
+
+    }
+    
+    
+    
 }

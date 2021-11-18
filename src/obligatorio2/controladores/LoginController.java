@@ -9,6 +9,7 @@ import obligatorio2.dominio.usuarios.Sesion;
 import obligatorio2.dominio.usuarios.Usuario;
 import obligatorio2.dominio.usuarios.UsuarioJuego;
 import obligatorio2.ui.Login;
+import obligatorio2.ui.PanelAdmin;
 import obligatorio2.ui.PanelJugador;
 import obligatorio2.ui.Prueba;
 import obligatorio2.utilidades.EventoMesaUsuario;
@@ -52,9 +53,9 @@ public class LoginController {
             panel.setLocationRelativeTo(login);
         }
         else {
-            Prueba prueba = new Prueba(login, false, this.sesion);
-            prueba.setVisible(true);
-            prueba.setLocationRelativeTo(login);
+            PanelAdmin panel = new PanelAdmin(login, false, this.sesion);
+            panel.setVisible(true);
+            panel.setLocationRelativeTo(login);
         }
     }
 

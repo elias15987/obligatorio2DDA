@@ -52,6 +52,7 @@ public class MesaController implements Observador{
                 this.vistaMesa.setLocationRelativeTo(this.panel);
                 mostrarTitulo();
                 if(this.mesa.getUsuarios().size() == 6 && this.mesa.isIniciado()){
+                    this.modelo.getSistemaJuego().comenzarJuegoMesa();
                     this.mesa.iniciarMesa();
                 }
             }
@@ -110,6 +111,11 @@ public class MesaController implements Observador{
         else if(evento.equals(EventoMesaUsuario.APOSTO)){
             this.actualizarTabla();
         }
+        else if(evento.equals(EventoMesaUsuario.GANADOR)){
+            JOptionPane.showMessageDialog(null, "El ganador es: " + this.mesa.getGanador().getNombreCompleto(), "Fin de Mano", JOptionPane.INFORMATION_MESSAGE);
+            this.nuevaMano();
+
+        }
         
     }
     
@@ -134,7 +140,7 @@ public class MesaController implements Observador{
            this.salirDeMesa();
        }
        else {
-           
+           this.mesa.habilitarMano();
             this.mesa.agregarApuesta(modelo.traerLuzMesa(), this.sesion.getUsuario());
             ((UsuarioJuego)this.sesion.getUsuario()).restarApuesta(modelo.traerLuzMesa());
             //this.sesion.getUsuario().avisarEvento();
@@ -146,7 +152,6 @@ public class MesaController implements Observador{
             mano.verificarSiTengoFigura();
             this.mesa.agregarMano(mano, this.sesion.getUsuario());
             this.actualizarCartasMostradas();
-
         }
        
        
@@ -175,13 +180,22 @@ public class MesaController implements Observador{
        
        ArrayList<Usuario> uAux = new ArrayList<>();
        for(Apuesta apuesta : (this.mesa.getApuestas())){
-           uAux.add(apuesta.getUsuario());
+            uAux.add(apuesta.getUsuario());
        }
+       
        this.vistaMesa.actualizarTablaMano(uAux);
        this.vistaMesa.actualizarPozo(this.mesa.getPozo());
-
-       
-   }    
+       this.vistaMesa.limpiarIntApuesta();
+       if(!((UsuarioJuego)this.sesion.getUsuario()).isPaso())
+       {
+           this.vistaMesa.mostrarBotones();
+       }
+   }
+   
+   
+   public void pasarTurno(){
+       this.mesa.pasarTurno(sesion.getUsuario());
+   }
     
     
     

@@ -19,7 +19,7 @@ public class PanelController implements Observador{
     private Sistema modelo = Sistema.getInstancia();
 
     
-       public PanelController(Login login, Usuario usuario) {
+    public PanelController(Login login, Usuario usuario) {
         this.login = login;
         this.sesion = new Sesion(usuario);
     }

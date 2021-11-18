@@ -42,9 +42,35 @@ public class Mesa extends javax.swing.JDialog{
         //Sistema.getInstancia().agregar(this);
         this.mesaController = mesaControlador;
         this.getContentPane().setBackground( Color.black );
-        marcarSillas();      
+        marcarSillas();
+        ocultarBotones();
     }
 
+    
+    public void ocultarBotones(){
+        this.btnApostar.setVisible(false);
+        this.btnPasar.setVisible(false);
+        this.intApuesta.setVisible(false);
+    }
+    
+    public void mostrarBotones(){
+        this.btnApostar.setVisible(true);
+        this.btnPasar.setVisible(true);
+        this.intApuesta.setVisible(true);
+    }
+    
+    public void limpiarIntApuesta(){
+        this.intApuesta.setText("");
+    }
+    
+    public boolean validarApuesta(String apuesta){
+        try {
+            int valor = Integer.parseInt(apuesta);
+            return true;
+        } catch (NumberFormatException ex) {
+            return false;
+        }
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -78,10 +104,10 @@ public class Mesa extends javax.swing.JDialog{
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         intApuesta = new javax.swing.JTextPane();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnApostar = new javax.swing.JButton();
+        btnPasar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
         saldoPersonal = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -168,34 +194,31 @@ public class Mesa extends javax.swing.JDialog{
         jLabel1.setText("Jugadores Activos en la mano");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 20, -1, -1));
 
-        intApuesta.setEnabled(false);
         jScrollPane2.setViewportView(intApuesta);
 
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 320, 80, -1));
 
-        jButton1.setText("Apostar");
-        jButton1.setEnabled(false);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnApostar.setText("Apostar");
+        btnApostar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnApostarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 320, 80, -1));
+        getContentPane().add(btnApostar, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 320, 80, -1));
 
-        jButton2.setText("Pasar");
-        jButton2.setEnabled(false);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnPasar.setText("Pasar");
+        btnPasar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnPasarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 360, 80, -1));
+        getContentPane().add(btnPasar, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 360, 80, -1));
 
         jLabel2.setText("Mi saldo:");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 380, -1, -1));
 
-        jButton3.setText("Salir");
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 400, 80, -1));
+        btnSalir.setText("Salir");
+        getContentPane().add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 400, 80, -1));
 
         saldoPersonal.setText("0");
         getContentPane().add(saldoPersonal, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 380, 60, -1));
@@ -207,13 +230,13 @@ public class Mesa extends javax.swing.JDialog{
         mesaController.salirDeMesa();
     }//GEN-LAST:event_formWindowClosed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnApostarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApostarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnApostarActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void btnPasarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPasarActionPerformed
+        mesaController.pasarTurno();
+    }//GEN-LAST:event_btnPasarActionPerformed
 
     
     public static void main(String args[]) {
@@ -233,15 +256,15 @@ public class Mesa extends javax.swing.JDialog{
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnApostar;
+    private javax.swing.JButton btnPasar;
+    private javax.swing.JButton btnSalir;
     private javax.swing.JLabel carta1;
     private javax.swing.JLabel carta2;
     private javax.swing.JLabel carta3;
     private javax.swing.JLabel carta4;
     private javax.swing.JLabel carta5;
     private javax.swing.JTextPane intApuesta;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;

@@ -8,12 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 import obligatorio2.dominio.juego.baraja.Figura;
 import obligatorio2.dominio.usuarios.Usuario;
+import obligatorio2.utilidades.EventoMesaUsuario;
+import obligatorio2.utilidades.Observable;
 
 /**
  *
  * @author eliasalcoba
  */
-public class SistemaJuego {
+public class SistemaJuego extends Observable {
     
     private MesaClase mesasDisponible;
     private ArrayList<MesaClase> mesasEnJuego = new  ArrayList<>();
@@ -41,10 +43,13 @@ public class SistemaJuego {
     
     public void comenzarJuegoMesa(){
         if(mesasDisponible != null){
-            this.mesasDisponible.setIniciado(true);
+            //this.mesasDisponible.setIniciado(true);
+            this.mesasDisponible.iniciarMesa();
             this.mesasEnJuego.add(this.mesasDisponible);
             this.mesasDisponible = null;
             this.agregarMesa();
+            avisar(EventoMesaUsuario.MESA_INICIADA);
+
         }
     }
     
@@ -89,7 +94,11 @@ public class SistemaJuego {
     public ArrayList<Figura> getFigurasPoker() {
         return figurasPoker;
     }
-    
 
+    public ArrayList<MesaClase> getMesasEnJuego() {
+        return mesasEnJuego;
+    }
+    
+    
     
 }

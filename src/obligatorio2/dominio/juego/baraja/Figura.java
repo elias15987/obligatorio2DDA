@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public abstract class Figura {
     
-    private String nombre;
+    private Figuras nombre;
     private int valor;
     private ArrayList<Carta> cartasFigura;
     
@@ -13,21 +13,21 @@ public abstract class Figura {
         
     }
 
-    public Figura(String nombre, int valor) {
+    public Figura(Figuras nombre, int valor) {
         this.nombre = nombre;
         this.valor = valor;
     }
     
-    public Figura(String nombre, ArrayList<Carta> cartasFigura) {
+    public Figura(Figuras nombre, ArrayList<Carta> cartasFigura) {
         this.nombre = nombre;
         this.cartasFigura = cartasFigura;
     }
 
-    public String getNombre() {
+    public Figuras getNombre() {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
+    public void setNombre(Figuras nombre) {
         this.nombre = nombre;
     }
 
@@ -51,5 +51,39 @@ public abstract class Figura {
     
     public abstract boolean tengoFigura(ArrayList<Carta> cartas);
     
+    public abstract ArrayList<Carta>  retornoCartas(ArrayList<Carta> cartas);
+
+    
+    
+    public boolean masAlta(Figura figura) {
+        
+       if(this.getValor() > figura.getValor()){
+           return true;
+       }
+       else if(this.getValor() == figura.getValor()){
+           Carta cartaAlta = null;
+           
+           for(Carta c : this.getCartasFigura()){
+               for(Carta c2 : figura.getCartasFigura()){
+                   if(c.getValor().retornarNumero() > c2.getValor().retornarNumero()){
+                       cartaAlta = c;
+                       return true;
+                   }
+                   else if(c.getValor().retornarNumero() == c2.getValor().retornarNumero()){
+                       if(c.getPalo().retornarNumero() > c2.getPalo().retornarNumero()){
+                           cartaAlta = c;
+                           return true;
+                       }
+                   }
+                   else {
+                       return false;
+                   }
+                }
+           }
+       }else{
+           return false;
+       }
+        return false;
+    }
     
 }

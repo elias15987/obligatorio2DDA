@@ -8,11 +8,11 @@ public class Pierna extends Figura{
     public Pierna() {
     }
 
-    public Pierna(String nombre, int valor) {
+    public Pierna(Figuras nombre, int valor) {
         super(nombre, valor);
     }
     
-    public Pierna(String nombre, ArrayList<Carta> cartasFigura) {
+    public Pierna(Figuras nombre, ArrayList<Carta> cartasFigura) {
         super(nombre, cartasFigura);
     }
 
@@ -23,22 +23,47 @@ public class Pierna extends Figura{
         boolean ret = false;
         
         int cont=0;
-        
+        ArrayList<Carta> cartasAux = new ArrayList<>();
+
         for (int i = 0; i < cartas.size(); i++) {
             for (int j = 0; j < cartas.size(); j++) {
                 if (i!=j) {
                     if (cartas.get(i).getValor() == cartas.get(j).getValor()) {
+                        if(!cartasAux.contains(cartas.get(i))){
+                            cartasAux.add(cartas.get(i));
+                        }
                         cont++;
                     }
                 }
             }
         }
+        super.setCartasFigura(cartasAux);
+
         
         if((cont / 2) >= 3){
             ret = true;
         }
         
         return ret;
+    }
+
+    @Override
+    public ArrayList<Carta> retornoCartas(ArrayList<Carta> cartas) {
+        ArrayList<Carta> cartasAux = new ArrayList<>();
+
+        for (int i = 0; i < cartas.size(); i++) {
+            for (int j = 0; j < cartas.size(); j++) {
+                if (i!=j) {
+                    if (cartas.get(i).getValor() == cartas.get(j).getValor()) {
+                        if(!cartasAux.contains(cartas.get(i))){
+                            cartasAux.add(cartas.get(i));
+                        }
+                    }
+                }
+            }
+        }
+        
+        return cartasAux;
     }
 }
 

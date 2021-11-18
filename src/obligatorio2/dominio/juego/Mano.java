@@ -49,6 +49,10 @@ public class Mano {
            if(f.tengoFigura(mano)){
                if(figura == null || f.getValor() > figura.getValor()){
                    figura = f;
+                   ArrayList<Carta> cartasFigura = figura.retornoCartas(mano);
+                   if(cartasFigura.size() > 0){
+                       figura.setCartasFigura(cartasFigura);
+                   }
               
                }
            }

@@ -30,8 +30,8 @@ public class DatosPrueba {
 
         logica.agregarUsuario(new UsuarioAdministrador("admin", "Admin", "Usuario Administrador"));
         
-        logica.agregarFigura(new Par(Figuras.PAR.name(), Figuras.PAR.getValor()));
-        logica.agregarFigura(new Pierna(Figuras.PIERNA.name(), Figuras.PIERNA.getValor()));
-        logica.agregarFigura(new Color(Figuras.COLOR.name(), Figuras.COLOR.getValor()));
+        logica.agregarFigura(new Par(Figuras.PAR, Figuras.PAR.getValor()));
+        logica.agregarFigura(new Pierna(Figuras.PIERNA, Figuras.PIERNA.getValor()));
+        logica.agregarFigura(new Color(Figuras.COLOR, Figuras.COLOR.getValor()));
     }
 }

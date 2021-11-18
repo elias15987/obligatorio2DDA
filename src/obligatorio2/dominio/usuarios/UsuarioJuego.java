@@ -8,6 +8,7 @@ public class UsuarioJuego extends Usuario {
     
     private int saldo; 
     private Mano mano;
+    private boolean paso = false;
 
     
     public UsuarioJuego(){}
@@ -36,6 +37,16 @@ public class UsuarioJuego extends Usuario {
     public void setMano(Mano mano) {
         this.mano = mano;
     }
+
+    public boolean isPaso() {
+        return paso;
+    }
+
+    public void setPaso(boolean paso) {
+        this.paso = paso;
+    }
+    
+    
     
     
     
