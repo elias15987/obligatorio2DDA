@@ -4,6 +4,7 @@ package obligatorio2.controladores;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import obligatorio2.dominio.Sistema;
+import obligatorio2.dominio.juego.Apuesta;
 import obligatorio2.dominio.juego.Mano;
 import obligatorio2.dominio.juego.MesaClase;
 import obligatorio2.dominio.juego.baraja.Carta;
@@ -29,7 +30,6 @@ public class MesaController implements Observador{
     private Mesa vistaMesa;
     private Sesion sesion;
     private Sistema modelo = Sistema.getInstancia();
-    private Mano mano;
 
     public MesaController(PanelJugador panel, Usuario usuario) {
         this.panel = panel;
@@ -51,9 +51,9 @@ public class MesaController implements Observador{
                 this.vistaMesa.setVisible(true);
                 this.vistaMesa.setLocationRelativeTo(this.panel);
                 mostrarTitulo();
-                
-                nuevaMano();
-
+                if(this.mesa.getUsuarios().size() == 6 && this.mesa.isIniciado()){
+                    this.mesa.iniciarMesa();
+                }
             }
             else {
                 JOptionPane.showMessageDialog(null, "No se pudo entrar en mesa, \n ya se encuentra dentro.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -70,6 +70,7 @@ public class MesaController implements Observador{
     public void salirDeMesa(){
         this.vistaMesa.dispose();
         this.mesa.eliminarUsuario(this.sesion.getUsuario());
+        this.mesa.quitarDeMano(this.sesion.getUsuario());
         if(this.mesa.getUsuarios().size() == 1){
             this.finalizarMesa();
         }
@@ -96,15 +97,18 @@ public class MesaController implements Observador{
     
     @Override
     public void actualizar(Observable origen, Object evento) {
-         if (evento.equals(EventoMesaUsuario.LISTA_JUGADORES)) {
-           this.actualizarJugadoresEnMesa();
-           this.actualizarTitulos();
+        if (evento.equals(EventoMesaUsuario.LISTA_JUGADORES)) {
+            this.actualizarJugadoresEnMesa();
+            this.actualizarTitulos();
         }
-         else if (evento.equals(EventoMesaUsuario.JUGAR_AL_POKER)){
-             this.nuevaMano();
-         }
-         else if(evento.equals(EventoMesaUsuario.CERRAR_MESA)){
-             this.salirDeMesa();
+        else if (evento.equals(EventoMesaUsuario.JUGAR_AL_POKER)){
+            this.nuevaMano();
+        }
+        else if(evento.equals(EventoMesaUsuario.CERRAR_MESA)){
+            this.salirDeMesa();
+        }
+        else if(evento.equals(EventoMesaUsuario.APOSTO)){
+            this.actualizarTabla();
         }
         
     }
@@ -131,19 +135,53 @@ public class MesaController implements Observador{
        }
        else {
            
-           this.mesa.agregarApuesta(modelo.traerLuzMesa(), this.sesion.getUsuario());
-           ((UsuarioJuego)this.sesion.getUsuario()).restarApuesta(modelo.traerLuzMesa());
-           this.sesion.getUsuario().avisarEvento();
+            this.mesa.agregarApuesta(modelo.traerLuzMesa(), this.sesion.getUsuario());
+            ((UsuarioJuego)this.sesion.getUsuario()).restarApuesta(modelo.traerLuzMesa());
+            //this.sesion.getUsuario().avisarEvento();
             this.mesa.generarMazo().armarMazo();
-            this.mano = new Mano();
+            Mano mano = new Mano();
             for(int i = 1; i <= 5; i++){
-                this.mano.agregarCarta(this.mesa.getMazo().repartirRandom());
+                mano.agregarCarta(this.mesa.getMazo().repartirRandom());
             }
-            this.mano.verificarSiTengoFigura();
+            mano.verificarSiTengoFigura();
+            this.mesa.agregarMano(mano, this.sesion.getUsuario());
+            this.actualizarCartasMostradas();
+
         }
+       
+       
+   }
+   
+   private void actualizarCartasMostradas(){
+       ArrayList<String> imgCartas = new ArrayList<>();
+       for(Carta c : this.mesa.traerMano(this.sesion.getUsuario()).getMano()){
+           String img = "";
+           if(c.getValor().retornarNumero() > 10){
+               img = c.getValor().name();
+           }
+           else{
+               img = c.getValor().retornarNumero() + "";
+           }
+           img += c.getPalo().name().charAt(0) + ".gif";
+           
+           imgCartas.add(img);
+       }
+       
+       this.vistaMesa.mostrarCartas(imgCartas);
    }
     
-    
+   
+   private void actualizarTabla(){
+       
+       ArrayList<Usuario> uAux = new ArrayList<>();
+       for(Apuesta apuesta : (this.mesa.getApuestas())){
+           uAux.add(apuesta.getUsuario());
+       }
+       this.vistaMesa.actualizarTablaMano(uAux);
+       this.vistaMesa.actualizarPozo(this.mesa.getPozo());
+
+       
+   }    
     
     
     

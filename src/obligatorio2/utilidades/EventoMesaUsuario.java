@@ -5,6 +5,7 @@ public enum EventoMesaUsuario {
     LISTA_JUGADORES,
     JUGAR_AL_POKER,
     CERRAR_MESA,
-    ACTUALIZAR_SALDO
+    ACTUALIZAR_SALDO,
+    APOSTO
 }
 

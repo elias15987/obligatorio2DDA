@@ -24,7 +24,7 @@ public enum ValorCarta {
         this.numero = numero;
     }
 
-    int retornarNumero() {
+    public int retornarNumero() {
         return numero;
     }
 

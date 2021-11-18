@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import obligatorio2.dominio.juego.baraja.Mazo;
 import obligatorio2.dominio.usuarios.Usuario;
+import obligatorio2.dominio.usuarios.UsuarioJuego;
 import obligatorio2.utilidades.EventoMesaUsuario;
 import obligatorio2.utilidades.Observable;
 
@@ -62,9 +63,6 @@ public class MesaClase extends Observable{
 
     public void setIniciado(boolean iniciado) {
         this.iniciado = iniciado;
-        if(iniciado) {
-            avisar(EventoMesaUsuario.JUGAR_AL_POKER);
-        }
     }
 
     public void setNombreMesa(String nombreMesa) {
@@ -81,6 +79,14 @@ public class MesaClase extends Observable{
 
     public void setMazo(Mazo mazo) {
         this.mazo = mazo;
+    }
+
+    public int getPozo() {
+        return pozo;
+    }
+
+    public void setPozo(int pozo) {
+        this.pozo = pozo;
     }
     
     
@@ -162,6 +168,46 @@ public class MesaClase extends Observable{
     public boolean agregarApuesta(int apuesta, Usuario usuario){
         this.apuestas.add(new Apuesta(apuesta, usuario));
         this.pozo += apuesta;
+        for(Usuario u : this.usuarios){
+            ((UsuarioJuego)u).restarApuesta(apuesta);
+        }
+        avisar(EventoMesaUsuario.APOSTO);
         return true;
+    }
+    
+    
+    
+    public void quitarDeMano(Usuario usuario){
+        for(Apuesta a : this.apuestas){
+            if(a.getUsuario().equals(usuario)){
+                this.apuestas.remove(a);
+                avisar(EventoMesaUsuario.APOSTO);
+
+            }
+        }
+    }
+    
+    public void iniciarMesa(){
+        if(this.iniciado) {
+            avisar(EventoMesaUsuario.JUGAR_AL_POKER);
+        }
+    }
+    
+    public void agregarMano(Mano mano, Usuario usuario){
+        for(Usuario u : this.usuarios){
+            if(u.equals(usuario)){
+                ((UsuarioJuego)u).setMano(mano);
+            }
+        }
+    }
+    
+    public Mano traerMano(Usuario usuario){
+        Mano mano = null;
+        for(Usuario u : this.usuarios){
+            if(u.equals(usuario)){
+                mano = ((UsuarioJuego)u).getMano();
+            }
+        }
+        return mano;
     }
 }
